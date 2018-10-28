@@ -1,0 +1,5 @@
+rss-streaming-service:
+  rss-service-mode: streaming
+  rss-sources:
+  - https://news.google.com/news/rss/headlines/section/topic/WORLD?ned=us&hl=en&gl=US
+  - https://www.reddit.com/r/worldnews/.rss
