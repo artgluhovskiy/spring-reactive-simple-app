@@ -1,4 +1,4 @@
-package org.art.web.app.listeners;
+package org.art.web.rss.listeners;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;

@@ -1,9 +1,8 @@
-package org.art.web.app.configuration;
+package org.art.web.rss.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.art.web.app.annotations.ConditionalOnRssStreamActivation;
-import org.art.web.app.listeners.RssStreamServiceListener;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.art.web.rss.annotations.ConditionalOnRssStreamActivation;
+import org.art.web.rss.listeners.RssStreamServiceListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

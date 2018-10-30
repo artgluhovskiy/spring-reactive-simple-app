@@ -1,3 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.art.web.app.configuration.RssStreamAppConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.art.web.rss.configuration.RssStreamAppConfig
 
-org.springframework.context.ApplicationContextInitializer=org.art.web.app.configuration.initializer.RssStreamAppContextInitializer
+org.springframework.context.ApplicationContextInitializer=org.art.web.rss.configuration.initializer.RssStreamAppContextInitializer

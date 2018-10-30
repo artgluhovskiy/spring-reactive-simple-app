@@ -1,4 +1,4 @@
-package org.art.web.app.configuration.initializer;
+package org.art.web.rss.configuration.initializer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContextInitializer;

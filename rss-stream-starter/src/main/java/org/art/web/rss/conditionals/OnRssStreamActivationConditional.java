@@ -1,6 +1,6 @@
-package org.art.web.app.conditionals;
+package org.art.web.rss.conditionals;
 
-import org.art.web.app.configuration.ConfigConstants;
+import org.art.web.rss.configuration.ConfigConstants;
 import org.springframework.boot.autoconfigure.condition.AllNestedConditions;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 

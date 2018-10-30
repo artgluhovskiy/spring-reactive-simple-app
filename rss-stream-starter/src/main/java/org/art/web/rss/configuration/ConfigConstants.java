@@ -1,4 +1,4 @@
-package org.art.web.app.configuration;
+package org.art.web.rss.configuration;
 
 public class ConfigConstants {
 

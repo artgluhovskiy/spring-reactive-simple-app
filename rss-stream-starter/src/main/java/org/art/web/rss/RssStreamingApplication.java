@@ -1,7 +1,7 @@
-package org.art.web.app;
+package org.art.web.rss;
 
 import lombok.extern.slf4j.Slf4j;
-import org.art.web.app.configuration.properties.RssStreamServiceProperties;
+import org.art.web.rss.configuration.properties.RssStreamServiceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
