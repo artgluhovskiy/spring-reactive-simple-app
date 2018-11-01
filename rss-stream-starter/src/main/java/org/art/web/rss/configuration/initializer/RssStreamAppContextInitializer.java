@@ -1,10 +1,11 @@
 package org.art.web.rss.configuration.initializer;
 
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@Slf4j
+@Log4j2
 public class RssStreamAppContextInitializer implements ApplicationContextInitializer {
 
     @Override
