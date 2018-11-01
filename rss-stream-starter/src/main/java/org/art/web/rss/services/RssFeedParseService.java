@@ -4,7 +4,8 @@ import org.art.web.rss.model.SimpleArticleModel;
 
 import java.util.List;
 
-public interface RssFeedService {
+public interface RssFeedParseService {
 
-    List<SimpleArticleModel> getRssArticles(List<String> feedSources);
+    List<SimpleArticleModel> parseRssFeedRawData(String feed);
+
 }
