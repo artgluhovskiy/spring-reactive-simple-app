@@ -1,6 +1,6 @@
 package org.art.web.rss.annotations;
 
-import org.art.web.rss.conditionals.OnRssStreamActivationConditional;
+import org.art.web.rss.configuration.conditionals.OnRssStreamActivationConditional;
 import org.springframework.context.annotation.Conditional;
 
 import java.lang.annotation.Retention;

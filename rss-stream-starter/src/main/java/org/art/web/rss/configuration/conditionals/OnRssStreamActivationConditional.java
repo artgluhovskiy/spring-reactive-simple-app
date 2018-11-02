@@ -1,4 +1,4 @@
-package org.art.web.rss.conditionals;
+package org.art.web.rss.configuration.conditionals;
 
 import org.art.web.rss.configuration.ConfigConstants;
 import org.springframework.boot.autoconfigure.condition.AllNestedConditions;

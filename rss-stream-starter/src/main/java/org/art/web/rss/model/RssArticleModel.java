@@ -3,11 +3,14 @@ package org.art.web.rss.model;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Data
 @ToString
-public class SimpleArticleModel {
+public class RssArticleModel {
 
     private String title;
     private String description;
     private String link;
+    private LocalDateTime pubDate;
 }
