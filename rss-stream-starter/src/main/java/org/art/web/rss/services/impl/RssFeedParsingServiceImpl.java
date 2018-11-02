@@ -74,12 +74,12 @@ public class RssFeedParsingServiceImpl implements RssFeedParsingService {
                 }
             }
         } catch (Exception e) {
-            log.info("Exception while reading/parsing RSS feed xml", e);
+            log.warn("Exception while reading/parsing RSS feed xml", e);
         }
         articles = articles.stream()
                 .filter(new ArticleInitializedPredicate())
                 .collect(Collectors.toList());
-        log.info("Parsed {} RSS feed articles: {}", articles.size(), articles);
+        log.debug("Parsed {} RSS feed articles: {}", articles.size(), articles);
         return articles;
     }
 }

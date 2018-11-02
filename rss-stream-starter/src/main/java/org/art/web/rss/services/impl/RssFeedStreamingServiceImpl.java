@@ -36,7 +36,7 @@ public class RssFeedStreamingServiceImpl implements RssFeedStreamingService {
                 }
             }
         } catch (InterruptedException e) {
-            log.error("Exception while pushing new articles in to the queue", e);
+            log.warn("Exception while pushing new articles in to the queue", e);
         }
         log.debug("Number of pushed articles: {}", pushedArticlesNumber);
         log.info("Number of articles in the queue: {}", blockingQueue.size());

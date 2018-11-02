@@ -4,4 +4,4 @@ rss-streaming-service:
   - https://www.nasa.gov/rss/dyn/breaking_news.rss
   - https://www.nasa.gov/rss/dyn/educationnews.rss
 
-logging.level.org.springframework.web: DEBUG
+logging.level.org.springframework: DEBUG

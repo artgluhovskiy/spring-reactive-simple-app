@@ -41,7 +41,7 @@ public class ScheduledTasks {
         if (rssSources != null) {
             try {
                 rssSources.forEach(source -> {
-                    log.info("Scheduler: local time of RSS fetching: {}", glTms);
+                    log.debug("Scheduler: local time of RSS fetching: {}", glTms);
                     String feedRaw = rssFeedImportingService.importRssFeedRaw(source);
                     List<RssArticleModel> rssArticles = rssFeedParsingService.parseRssFeedRawData(feedRaw);
                     rssArticles = rssArticles.stream()
@@ -49,12 +49,12 @@ public class ScheduledTasks {
                             .collect(Collectors.toList());
                     rssFeedStreamingService.pushArticles(rssArticles);
                     if (!rssArticles.isEmpty()) {
-                        log.info("New Rss Articles were fetched from the source {}: {}", source, rssArticles);
+                        log.debug("New Rss Articles were fetched from the source {}: {}", source, rssArticles);
                     }
                 });
                 globalTimestamp = LocalDateTime.now();
             } catch (Exception e) {
-                log.error("Exception while fetching/generating articles from the sources", e);
+                log.warn("Exception while fetching/generating articles from the sources", e);
             }
         } else {
             log.info("RSS feed sources are not defined");
