@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @ToString
-public class RssArticleModel {
+public class RssArticle {
 
     private String title;
     private String description;

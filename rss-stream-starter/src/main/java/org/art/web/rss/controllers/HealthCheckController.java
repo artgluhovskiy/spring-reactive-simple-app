@@ -1,6 +1,5 @@
 package org.art.web.rss.controllers;
 
-import org.art.web.rss.model.RssArticleModel;
 import org.art.web.rss.scheduling.ScheduledTasks;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.services.RssFeedParsingService;
@@ -8,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/health")
@@ -39,7 +35,7 @@ public class HealthCheckController {
 //        String rssSource = "https://www.nasa.gov/rss/dyn/breaking_news.rss";
         scheduledTasks.fetchRssFeedFromSources();
 //        String feed = rssFeedImportingService.importRssFeedRaw(rssSource);
-//        List<RssArticleModel> rssArticleModels = rssFeedParsingService.parseRssFeedRawData(feed);
+//        List<RssArticle> rssArticleModels = rssFeedParsingService.parseRssFeedRawData(feed);
 
 
         return "Rss OK";

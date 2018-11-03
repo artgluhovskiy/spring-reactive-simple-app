@@ -2,7 +2,7 @@ package org.art.web.rss.services.impl;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.art.web.rss.model.RssArticleModel;
+import org.art.web.rss.model.RssArticle;
 import org.art.web.rss.predicates.ArticleInitializedPredicate;
 import org.art.web.rss.services.RssFeedParsingService;
 import org.art.web.rss.utils.xml.StaxStreamProcessor;
@@ -25,19 +25,19 @@ import static org.art.web.rss.services.RssFeedServiceConstants.*;
 
 @Log4j2
 @Service
-public class RssFeedParsingServiceImpl implements RssFeedParsingService {
+public class RssFeedParsingServiceImpl implements RssFeedParsingService<RssArticle> {
 
     private static final DateTimeFormatter RFC822_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("EEE, d[d] MMM yyyy HH:mm[:ss] z", Locale.US);
 
     @Override
-    public List<RssArticleModel> parseRssFeedRawData(String feed) {
+    public List<RssArticle> parseRssFeedRawData(String feed) {
         log.info("RssFeedParseServiceImpl: parsing RSS feed raw xml file");
         if (StringUtils.isBlank(feed)) {
             return Collections.emptyList();
         }
-        List<RssArticleModel> articles = new ArrayList<>();
+        List<RssArticle> articles = new ArrayList<>();
         InputStream feedInStream = new ByteArrayInputStream(feed.getBytes(StandardCharsets.UTF_8));
-        RssArticleModel currentArticle = new RssArticleModel();
+        RssArticle currentArticle = new RssArticle();
         try (StaxStreamProcessor processor = new StaxStreamProcessor(feedInStream, StandardCharsets.UTF_8.name())) {
             XMLStreamReader reader = processor.getReader();
             String tagContent = StringUtils.EMPTY;
@@ -46,7 +46,7 @@ public class RssFeedParsingServiceImpl implements RssFeedParsingService {
                 switch (event) {
                     case XMLStreamConstants.START_ELEMENT:
                         if (XML_ARTICLE_TAG_NAME_ITEM.equals(reader.getLocalName())) {
-                            currentArticle = new RssArticleModel();
+                            currentArticle = new RssArticle();
                         }
                         break;
                     case XMLStreamConstants.CHARACTERS:

@@ -2,10 +2,10 @@ package org.art.web.rss.configuration.runners;
 
 import lombok.extern.log4j.Log4j2;
 import org.art.web.rss.configuration.properties.RssStreamServiceProperties;
-import org.art.web.rss.model.RssArticleModel;
+import org.art.web.rss.model.RssArticle;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.services.RssFeedParsingService;
-import org.art.web.rss.services.RssFeedStreamingService;
+import org.art.web.rss.services.RssModelContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class RssArticleDataInitializer implements CommandLineRunner {
     private RssFeedParsingService rssFeedParsingService;
 
     @Autowired
-    private RssFeedStreamingService rssFeedStreamingService;
+    private RssModelContainer rssModelContainer;
 
     @Override
     public void run(String... args) {
@@ -39,8 +39,8 @@ public class RssArticleDataInitializer implements CommandLineRunner {
         if (rssSources != null) {
             try {
                 String feedRaw = rssFeedImportingService.importRssFeedRaw(INITIAL_RSS_FEED_SOURCE);
-                List<RssArticleModel> rssArticles = rssFeedParsingService.parseRssFeedRawData(feedRaw);
-                rssFeedStreamingService.pushArticles(rssArticles);
+                List<RssArticle> rssArticles = rssFeedParsingService.parseRssFeedRawData(feedRaw);
+                rssModelContainer.pushArticles(rssArticles);
                 if (!rssArticles.isEmpty()) {
                     log.debug("Initial Rss Articles were fetched from the source {}: {}", INITIAL_RSS_FEED_SOURCE, rssArticles);
                 }

@@ -2,10 +2,10 @@ package org.art.web.rss.scheduling;
 
 import lombok.extern.log4j.Log4j2;
 import org.art.web.rss.configuration.properties.RssStreamServiceProperties;
-import org.art.web.rss.model.RssArticleModel;
+import org.art.web.rss.model.RssArticle;
+import org.art.web.rss.services.RssModelContainer;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.services.RssFeedParsingService;
-import org.art.web.rss.services.RssFeedStreamingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,19 +18,26 @@ import java.util.stream.Collectors;
 @Component
 public class ScheduledTasks {
 
-    @Autowired
-    private RssFeedImportingService rssFeedImportingService;
+    private final RssFeedImportingService rssFeedImportingService;
 
-    @Autowired
-    private RssFeedParsingService rssFeedParsingService;
+    private final RssFeedParsingService<RssArticle> rssFeedParsingService;
 
-    @Autowired
-    private RssFeedStreamingService rssFeedStreamingService;
+    private final RssModelContainer<RssArticle> rssModelContainer;
 
-    @Autowired
-    private RssStreamServiceProperties properties;
+    private final RssStreamServiceProperties properties;
 
     private static volatile LocalDateTime globalTimestamp = LocalDateTime.now().minusDays(100);
+
+    @Autowired
+    public ScheduledTasks(RssFeedImportingService rssFeedImportingService,
+                          RssFeedParsingService<RssArticle> rssFeedParsingService,
+                          RssModelContainer<RssArticle> rssModelContainer,
+                          RssStreamServiceProperties properties) {
+        this.rssFeedImportingService = rssFeedImportingService;
+        this.rssFeedParsingService = rssFeedParsingService;
+        this.rssModelContainer = rssModelContainer;
+        this.properties = properties;
+    }
 
     @Scheduled(fixedRate = 20000)
     public void fetchRssFeedFromSources() {
@@ -43,11 +50,11 @@ public class ScheduledTasks {
                 rssSources.forEach(source -> {
                     log.debug("Scheduler: local time of RSS fetching: {}", glTms);
                     String feedRaw = rssFeedImportingService.importRssFeedRaw(source);
-                    List<RssArticleModel> rssArticles = rssFeedParsingService.parseRssFeedRawData(feedRaw);
+                    List<RssArticle> rssArticles = rssFeedParsingService.parseRssFeedRawData(feedRaw);
                     rssArticles = rssArticles.stream()
                             .filter(article -> glTms.isBefore(article.getPubDate()))
                             .collect(Collectors.toList());
-                    rssFeedStreamingService.pushArticles(rssArticles);
+                    rssModelContainer.pushArticles(rssArticles);
                     if (!rssArticles.isEmpty()) {
                         log.debug("New Rss Articles were fetched from the source {}: {}", source, rssArticles);
                     }

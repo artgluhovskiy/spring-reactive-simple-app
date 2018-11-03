@@ -5,10 +5,9 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
+import org.springframework.http.MediaType;
 
 import java.util.Collections;
-
-import static org.art.web.rss.utils.http.HttpCommonConstants.CONTENT_TYPE_APPLICATION_RSS_XML;
 
 public class HttpClientUtils {
 
@@ -20,7 +19,7 @@ public class HttpClientUtils {
                 .setSocketTimeout(1000).build();
         clientBuilder
                 .setDefaultRequestConfig(config)
-                .setDefaultHeaders(Collections.singletonList(new BasicHeader(HttpHeaders.ACCEPT, CONTENT_TYPE_APPLICATION_RSS_XML)));
+                .setDefaultHeaders(Collections.singletonList(new BasicHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_RSS_XML_VALUE)));
         return clientBuilder.build();
     }
 }
