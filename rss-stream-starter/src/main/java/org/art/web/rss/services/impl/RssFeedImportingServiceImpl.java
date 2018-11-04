@@ -11,7 +11,6 @@ import org.apache.http.util.EntityUtils;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.utils.http.HttpClientUtils;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -20,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Log4j2
-@Service
 public class RssFeedImportingServiceImpl implements RssFeedImportingService {
 
     private static final Set<String> SUPPORTED_XML_MIME_TYPES;

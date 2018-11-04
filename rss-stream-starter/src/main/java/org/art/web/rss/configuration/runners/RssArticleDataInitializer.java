@@ -6,36 +6,37 @@ import org.art.web.rss.model.RssArticle;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.services.RssFeedParsingService;
 import org.art.web.rss.services.RssModelContainer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static org.art.web.rss.configuration.ConfigConstants.INITIAL_RSS_FEED_SOURCE;
 
 @Log4j2
-@Component
 public class RssArticleDataInitializer implements CommandLineRunner {
 
-    @Autowired
-    private RssStreamServiceProperties properties;
+    private final RssStreamServiceProperties properties;
 
-    @Autowired
-    private RssFeedImportingService rssFeedImportingService;
+    private final RssFeedImportingService rssFeedImportingService;
 
-    @Autowired
-    private RssFeedParsingService rssFeedParsingService;
+    private final RssFeedParsingService<RssArticle> rssFeedParsingService;
 
-    @Autowired
-    private RssModelContainer rssModelContainer;
+    private final RssModelContainer<RssArticle> rssModelContainer;
+
+    public RssArticleDataInitializer(RssStreamServiceProperties properties,
+                                     RssFeedImportingService rssFeedImportingService,
+                                     RssFeedParsingService<RssArticle> rssFeedParsingService,
+                                     RssModelContainer<RssArticle> rssModelContainer) {
+        this.properties = properties;
+        this.rssFeedImportingService = rssFeedImportingService;
+        this.rssFeedParsingService = rssFeedParsingService;
+        this.rssModelContainer = rssModelContainer;
+    }
 
     @Override
     public void run(String... args) {
         log.info("RssArticleDataInitializer is running. Fetching initial articles from remote");
-        String runningMode = properties.getRssServiceMode();
         List<String> rssSources = properties.getRssSources();
-        log.info("RSS Service mode: {}, RSS sources: {}", runningMode, rssSources);
         if (rssSources != null) {
             try {
                 String feedRaw = rssFeedImportingService.importRssFeedRaw(INITIAL_RSS_FEED_SOURCE);

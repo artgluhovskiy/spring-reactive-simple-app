@@ -6,7 +6,6 @@ import lombok.extern.log4j.Log4j2;
 import org.art.web.rss.listeners.RssFeedContainerListener;
 import org.art.web.rss.model.RssArticle;
 import org.art.web.rss.services.RssModelContainer;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
@@ -16,7 +15,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-@Service
 public class RssModelContainerImpl implements RssModelContainer<RssArticle> {
 
     private static final int MAX_ARTICLE_QUEUE_SIZE = 40;
@@ -65,8 +63,11 @@ public class RssModelContainerImpl implements RssModelContainer<RssArticle> {
             log.info("Container helper is running...");
             while (streamActive) {
                 try {
-                    RssArticle article = ARTICLE_QUEUE.take();
-                    RSS_LISTENERS.forEach(listener -> listener.onArticlePushed(article));
+                    if (!RSS_LISTENERS.isEmpty()) {
+                        log.info("Listeners notification...");
+                        RssArticle article = ARTICLE_QUEUE.take();
+                        RSS_LISTENERS.forEach(listener -> listener.onArticlePushed(article));
+                    }
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     log.warn("Exception while retrieving new article out of the queue");

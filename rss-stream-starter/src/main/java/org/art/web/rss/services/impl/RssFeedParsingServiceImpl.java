@@ -6,7 +6,6 @@ import org.art.web.rss.model.RssArticle;
 import org.art.web.rss.predicates.ArticleInitializedPredicate;
 import org.art.web.rss.services.RssFeedParsingService;
 import org.art.web.rss.utils.xml.StaxStreamProcessor;
-import org.springframework.stereotype.Service;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 import static org.art.web.rss.services.RssFeedServiceConstants.*;
 
 @Log4j2
-@Service
 public class RssFeedParsingServiceImpl implements RssFeedParsingService<RssArticle> {
 
     private static final DateTimeFormatter RFC822_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("EEE, d[d] MMM yyyy HH:mm[:ss] z", Locale.US);

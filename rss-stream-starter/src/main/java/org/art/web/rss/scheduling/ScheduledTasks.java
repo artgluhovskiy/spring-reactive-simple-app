@@ -3,19 +3,16 @@ package org.art.web.rss.scheduling;
 import lombok.extern.log4j.Log4j2;
 import org.art.web.rss.configuration.properties.RssStreamServiceProperties;
 import org.art.web.rss.model.RssArticle;
-import org.art.web.rss.services.RssModelContainer;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.services.RssFeedParsingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.art.web.rss.services.RssModelContainer;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Log4j2
-@Component
 public class ScheduledTasks {
 
     private final RssFeedImportingService rssFeedImportingService;
@@ -28,7 +25,6 @@ public class ScheduledTasks {
 
     private static volatile LocalDateTime globalTimestamp = LocalDateTime.now().minusDays(100);
 
-    @Autowired
     public ScheduledTasks(RssFeedImportingService rssFeedImportingService,
                           RssFeedParsingService<RssArticle> rssFeedParsingService,
                           RssModelContainer<RssArticle> rssModelContainer,
@@ -41,7 +37,7 @@ public class ScheduledTasks {
 
     @Scheduled(fixedRate = 20000)
     public void fetchRssFeedFromSources() {
-        log.info("Scheduler: fetching RSS feed articles... Thread: {}", Thread.currentThread().getName());
+        log.info("Scheduler: fetching RSS feed articles...");
         List<String> rssSources = properties.getRssSources();
         log.info("Scheduler: fetching RSS feed from sources: {}", rssSources);
         LocalDateTime glTms = globalTimestamp;

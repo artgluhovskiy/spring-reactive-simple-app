@@ -9,6 +9,11 @@ import org.springframework.http.MediaType;
 
 import java.util.Collections;
 
+/**
+ * Http Client Utility class for building
+ * a simple http client, which is used to retrieve
+ * RSS data files from remote servers.
+ */
 public class HttpClientUtils {
 
     public static CloseableHttpClient buildRssFeedImporterHttpClient() {

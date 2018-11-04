@@ -1,5 +1,6 @@
 package org.art.web.rss.controllers;
 
+import org.art.web.rss.annotations.ConditionalOnRssStreamActivation;
 import org.art.web.rss.scheduling.ScheduledTasks;
 import org.art.web.rss.services.RssFeedImportingService;
 import org.art.web.rss.services.RssFeedParsingService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@ConditionalOnRssStreamActivation
 @RequestMapping("/health")
 public class HealthCheckController {
 
