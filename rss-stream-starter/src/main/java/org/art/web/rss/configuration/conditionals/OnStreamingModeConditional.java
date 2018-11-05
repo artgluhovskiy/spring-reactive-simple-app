@@ -4,9 +4,9 @@ import org.art.web.rss.configuration.ConfigConstants;
 import org.springframework.boot.autoconfigure.condition.AllNestedConditions;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
-public class OnRssStreamActivationConditional extends AllNestedConditions {
+public class OnStreamingModeConditional extends AllNestedConditions {
 
-    public OnRssStreamActivationConditional() {
+    public OnStreamingModeConditional() {
         super(ConfigurationPhase.REGISTER_BEAN);
     }
 

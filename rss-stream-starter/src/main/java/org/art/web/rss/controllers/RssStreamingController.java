@@ -1,7 +1,7 @@
 package org.art.web.rss.controllers;
 
 import lombok.extern.log4j.Log4j2;
-import org.art.web.rss.annotations.ConditionalOnRssStreamActivation;
+import org.art.web.rss.annotations.ConditionalOnStreamingMode;
 import org.art.web.rss.listeners.RssFeedContainerListener;
 import org.art.web.rss.model.RssArticle;
 import org.art.web.rss.services.RssModelContainer;
@@ -16,7 +16,7 @@ import java.time.Duration;
 
 @Log4j2
 @RestController
-@ConditionalOnRssStreamActivation
+@ConditionalOnStreamingMode
 @RequestMapping("/rss")
 public class RssStreamingController {
 

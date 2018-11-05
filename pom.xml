@@ -21,7 +21,6 @@
 
     <modules>
         <module>rss-stream-starter</module>
-        <module>rss-client</module>
     </modules>
 
     <properties>

@@ -1,7 +1,7 @@
 package org.art.web.rss.configuration;
 
 import lombok.extern.log4j.Log4j2;
-import org.art.web.rss.annotations.ConditionalOnRssStreamActivation;
+import org.art.web.rss.annotations.ConditionalOnStreamingMode;
 import org.art.web.rss.configuration.properties.RssStreamServiceProperties;
 import org.art.web.rss.configuration.runners.RssArticleDataInitializer;
 import org.art.web.rss.model.RssArticle;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Log4j2
 @Configuration
-@ConditionalOnRssStreamActivation
+@ConditionalOnStreamingMode
 public class RssStreamAppConfig {
 
     @Bean
