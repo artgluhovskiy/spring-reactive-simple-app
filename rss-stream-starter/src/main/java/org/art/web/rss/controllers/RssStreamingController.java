@@ -34,6 +34,7 @@ public class RssStreamingController {
                 new RssFeedContainerListener<RssArticle>() {
                     @Override
                     public void onArticlePushed(RssArticle article) {
+                        log.info("Flux Sink: trying to push new article: {}", article);
                         if (article != null) {
                             sink.next(article);
                         }
@@ -41,6 +42,7 @@ public class RssStreamingController {
 
                     @Override
                     public void onRssStreamClosed() {
+                        log.info("Flux Sink: completion");
                         sink.complete();
                     }
                 })).delayElements(Duration.ofSeconds(5));
