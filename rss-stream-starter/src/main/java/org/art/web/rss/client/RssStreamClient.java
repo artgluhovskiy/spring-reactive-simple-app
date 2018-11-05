@@ -40,7 +40,8 @@ public class RssStreamClient {
                 .get()
                 .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_STREAM_JSON_VALUE)
                 .retrieve()
-                .bodyToFlux(RssArticle.class);
+                .bodyToFlux(RssArticle.class)
+                .doOnCancel(() -> log.info("*** Canceling ***"));
     }
 
     public Flux<RssArticle> getRssFlux() {
