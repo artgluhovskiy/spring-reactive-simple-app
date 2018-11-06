@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class RssModelContainerImpl implements RssModelContainer<RssArticle> {
@@ -23,7 +22,8 @@ public class RssModelContainerImpl implements RssModelContainer<RssArticle> {
 
     private static final Set<RssFeedContainerListener<RssArticle>> RSS_LISTENERS = ConcurrentHashMap.newKeySet();
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private volatile boolean streamActive = true;
 
     public RssModelContainerImpl() {
@@ -39,9 +39,7 @@ public class RssModelContainerImpl implements RssModelContainer<RssArticle> {
         }
         try {
             for (RssArticle article : articles) {
-                if (ARTICLE_QUEUE.offer(article, 5, TimeUnit.SECONDS)) {
-                    pushedArticlesNumber++;
-                }
+                ARTICLE_QUEUE.put(article);
             }
         } catch (InterruptedException e) {
             log.warn("Exception while pushing new articles in to the queue", e);
@@ -64,9 +62,11 @@ public class RssModelContainerImpl implements RssModelContainer<RssArticle> {
             while (streamActive) {
                 try {
                     if (!RSS_LISTENERS.isEmpty()) {
-                        log.info("Listeners notification...");
                         RssArticle article = ARTICLE_QUEUE.take();
-                        RSS_LISTENERS.forEach(listener -> listener.onArticlePushed(article));
+                        RSS_LISTENERS.forEach(listener -> {
+                            log.info("Listener {} is notified with a new article", listener);
+                            listener.onArticlePushed(article);
+                        });
                     }
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
